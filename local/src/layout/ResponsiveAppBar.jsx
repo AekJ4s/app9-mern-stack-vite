@@ -42,12 +42,12 @@ const authUser = [
   {
     title: 'สินค้าในตะกร้า',
     icon: '',
-    to: '/user/order',
+    to: '/user/cart',
   },
   {
     title: 'คำสั่งซื้อ',
     icon: '',
-    to: '/user/invoice',
+    to: '/user/order',
   },
 ]
 

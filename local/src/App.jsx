@@ -21,7 +21,6 @@ import DBCart from './components/pages/admin/DBCart'
 import DBOrder from './components/pages/admin/DBOrder'
 import DBCFCode from './components/pages/admin/DBCFCode'
 import ADinvoice from './components/pages/admin/ADinvoice'
-import ADexpress from './components/pages/admin/EXcreate'
 import ADSales from './components/pages/admin/ADSales'
 import ADSeacrh from './components/pages/admin/ADSearch'
 import SearchbyOrder from './components/pages/admin/SearchbyOrder'
@@ -29,8 +28,8 @@ import ManageUser from './components/pages/ManageUser'
 import ADCheckout from './components/pages/admin/ADcheckout'
 
 import ResponsiveAppBar from './layout/ResponsiveAppBar'
+import UScart from './components/pages/user/UScart'
 import USorder from './components/pages/user/USorder'
-import USinvoice from './components/pages/user/USinvoice'
 import Service from './components/pages/user/Service'
 import About from './components/pages/user/About'
 
@@ -134,18 +133,18 @@ function App() {
           }
         />
         <Route
-          path="/user/order"
+          path="/user/cart"
           element={
             <UserRoute>
-              <USorder />
+              <UScart />
             </UserRoute>
           }
         />
         <Route
-          path="/user/invoice"
+          path="/user/order"
           element={
             <UserRoute>
-              <USinvoice />
+              <USorder />
             </UserRoute>
           }
         />

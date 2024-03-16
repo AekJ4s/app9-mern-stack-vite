@@ -27,11 +27,4 @@ router.get('/comments/:productId', async (req, res) => {
   }
 })
 
-router.get('/comment/read', (req, res) => {
-  comment
-    .find()
-    .exec()
-    .then((docs) => res.json(docs))
-})
-
 export default router

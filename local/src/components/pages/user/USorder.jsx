@@ -1,73 +1,139 @@
-import { Link } from 'react-router-dom'
-import { productList } from '../../../data'
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
-import DeleteIcon from '@mui/icons-material/Delete'
+import Selectbar from '../../../assets/selectbar'
+import { styled } from '@mui/material/styles'
+import Box from '@mui/material/Box'
+import Paper from '@mui/material/Paper'
+import Grid from '@mui/material/Grid'
+import MyComponent from '../../../assets/date'
+import { orderDetail } from '../../../data'
+
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: 'center',
+  color: theme.palette.text.secondary,
+}))
 
 export default function USorder() {
   return (
-    <>
-      <div className=" position-relative mt-5 ">
-        <h3 className=" m-3">
-          <span>We Live</span>
-          <span className=" text-success ms-2">
-            | ตระกร้าสินค้าของคุณ
-            <ShoppingCartIcon />
-          </span>
-        </h3>
-      </div>
-      <div className="card mt-5 mx-auto p-4 rounded">
-        <table className="table table-striped table-sm">
-          <thead className="table-success">
-            <tr>
-              <td className="text-center">เลขสินค้าที่คอมเม้นท์</td>
-              <td className="text-center">ชื่อสินค้า</td>
-              <td className="text-center">จำนวน</td>
-              <td className="text-center">ราคา</td>
-              <td className="text-center">ยอดสั่งซื้อ</td>
-              <td className="text-center"></td>
-            </tr>
-          </thead>
+    <div className=" position-relative mt-5 ">
+      <h3 className=" m-3">
+        <span>We Live</span>
+        <span className=" text-success ms-2">| ชำระสินค้า</span>
+      </h3>
+      <div className="m-2">
+        {orderDetail.map((detail, i) => {
+          // if (detail.from.fbName == 'Wittaya R.')
+          // ใช้ในการกำหนด ให้ชื่อ user ตรงกับออเดอร์เท่านั้นถึงจะโชว์ให้จ่ายเงิน
+          return (
+            <div
+              key={detail.id}
+              className="card card-header mb-3 bg-warning bg-opacity-75 "
+            >
+              <Box sx={{ flexGrow: 1 }} className="m-3">
+                <Grid container spacing={3} key={detail.id}>
+                  <Grid item xs={2}>
+                    <Item className="bg-primary text-white">
+                      <h5>ออเดอร์ # {detail.from.orderID}</h5>
+                    </Item>
+                  </Grid>
+                  <Grid item xs={4}>
+                    <Item className=" bg-info-subtle text-center">
+                      <h5 className="text-danger">
+                        Facebook name :
+                        เพิ่มเงื่อนไขส่วนนี้ให้แสดงเฉพาะที่ตรงกับชื่อ User
+                        ที่ล็อคอินเข้ามา
+                      </h5>
+                    </Item>
+                  </Grid>
+                  <Grid item xs={5}>
+                    <Item className=" bg-info-subtle text-center">
+                      <MyComponent />
+                    </Item>
+                  </Grid>
+                </Grid>
+              </Box>
 
-          <tbody className="table-group-divider">
-            {productList.map((product) => {
-              // คำนวณค่า itempr * among - discount
-
-              return (
-                <tr key={product.id}>
-                  <td className="text-center"># {product.from.CFcode}</td>
-                  <td className="text-center"> {product.from.proName} </td>
-                  <td className="text-center"> {product.from.proAmount} </td>
-                  <td className="text-center"> {product.from.proPrice} </td>
-                  <td className="text-center text-danger">
-                    {product.from.proSum}{' '}
-                  </td>
-                  <td>
-                    <div>
-                      <button className="btn btn-sm btn-danger">
-                        <DeleteIcon />
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              )
-            })}
-          </tbody>
-        </table>
-        <div className="text-center">
-          <button className="text-white btn btn-success btn-sm">
-            ชำระเงิน
-          </button>
-        </div>
+              <div className="card card-body">
+                <table className="table">
+                  <thead className="table-success">
+                    <tr>
+                      <th className="text-center">#</th>
+                      <th className="text-center">รายการ</th>
+                      <th className="text-center">จำนวน</th>
+                      <th className="text-center">ราคา</th>
+                    </tr>
+                  </thead>
+                  <tbody className=" table-striped">
+                    <tr key={detail.id}>
+                      <th className="text-center">{i + 1}</th>
+                      <th className="text-center">
+                        {detail.from.itemId} | {detail.from.itemNm}
+                      </th>
+                      <th className="text-center">{detail.from.among} ชิ้น</th>
+                      <th className="text-center">{detail.from.itempr} บาท </th>
+                    </tr>
+                    <tr>
+                      <th className="text-center">{}</th>
+                      <th className="text-center">ส่วนลด</th>
+                      <th className="text-center">{}</th>
+                      <th className="text-center">
+                        {detail.from.discount} บาท
+                      </th>
+                    </tr>
+                    <tr>
+                      <th className="text-center">{}</th>
+                      <th className="text-center">
+                        <Selectbar />
+                      </th>
+                      <th className="text-center">{}</th>
+                      <th className="text-center text-danger">
+                        รอดึงราคาจาก expressdetail
+                      </th>
+                    </tr>
+                    <tr>
+                      <th className="text-center">{}</th>
+                      <th className="text-center">รวม</th>
+                      <th className="text-center">{detail.from.among} ชิ้น</th>
+                      <th className="text-center text-danger">
+                        รอ ฟังก์ชั่นในการรวมราคา
+                      </th>
+                    </tr>
+                  </tbody>
+                </table>
+                <div>
+                  <h5>
+                    <span className="text-success">เลือก </span> | วันเวลาที่โอน
+                  </h5>
+                  <input type="date" className=" w-25 float-start" />
+                  <input type="time" className=" w-25 ms-3" />
+                </div>
+                <div className="mt-3">
+                  <h5>จำนวนเงิน</h5>
+                  <input
+                    type="number"
+                    className=" w-25"
+                    placeholder="กรอกตัวเลขเท่านั้น"
+                  ></input>
+                </div>
+                <div className="mt-3">
+                  <h5>อัพโหลดภาพสลิป</h5>
+                  <input type="file"></input>
+                </div>
+              </div>
+              <div className="text-center mt-2">
+                <button className="btn btn-sm btn-primary">
+                  ส่งแบบฟอร์มชำระเงิน
+                </button>
+                <button className="btn btn-sm btn-danger ms-3">
+                  ยกเลิกคำสั่งซื้อนี้
+                </button>
+              </div>
+            </div>
+          )
+        })}
       </div>
-
-      <div className=" align-items-center text-center mt-3">
-        <Link
-          to="/user/home"
-          className="btn btn-sm btn-outline-light text-dark border-3 border-primary text-center  "
-        >
-          กลับหน้าหลัก
-        </Link>
-      </div>
-    </>
+      <div className="text-center"></div>
+    </div>
   )
 }

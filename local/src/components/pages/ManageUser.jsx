@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
 
 import {
   Select,
@@ -16,7 +15,6 @@ import {
 } from '@mui/material'
 
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
-import EditIcon from '@mui/icons-material/Edit'
 
 const ManageUser = () => {
   const role = ['admin', 'user']
